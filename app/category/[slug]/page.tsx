@@ -38,6 +38,18 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     };
 }
 
+interface SaasToolType {
+    _id: string;
+    slug: string;
+    name: string;
+    logoUrl: string;
+    isFeatured?: boolean;
+    averageRating?: number;
+    shortDescription?: string;
+    features?: string[];
+    startingPrice?: number;
+}
+
 export default async function CategoryPage({ params }: { params: { slug: string } }) {
     await dbConnect();
     const category = await Category.findOne({ slug: params.slug });
@@ -58,7 +70,7 @@ export default async function CategoryPage({ params }: { params: { slug: string 
     }
 
     const baseUrl = process.env.NEXTAUTH_URL || "https://saascomparepro.com";
-    const tools = await SaaSTool.find({ category: category._id }).sort({ isFeatured: -1, averageRating: -1 });
+    const tools: SaasToolType[] = await SaaSTool.find({ category: category._id }).sort({ isFeatured: -1, averageRating: -1 });
 
     const breadcrumbJsonLd = {
         "@context": "https://schema.org",
@@ -90,7 +102,7 @@ export default async function CategoryPage({ params }: { params: { slug: string 
         "@type": "ItemList",
         "name": `Top ${category.name} Software`,
         "description": `Comparison of the best ${category.name} tools.`,
-        "itemListElement": tools.map((tool: any, index: number) => ({
+        "itemListElement": tools.map((tool: SaasToolType, index: number) => ({
             "@type": "ListItem",
             "position": index + 1,
             "url": `${baseUrl}/product/${tool.slug}`,

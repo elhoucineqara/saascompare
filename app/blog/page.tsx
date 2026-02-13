@@ -22,6 +22,19 @@ export const metadata: Metadata = {
     },
 };
 
+interface BlogPostType {
+    _id: string;
+    slug: string;
+    title: string;
+    excerpt?: string;
+    coverImage?: string;
+    publishedAt?: Date;
+    author?: {
+        name: string;
+    };
+    tags?: string[];
+}
+
 export default async function BlogIndexPage() {
     const baseUrl = process.env.NEXTAUTH_URL || "https://saascomparepro.com";
 
@@ -45,7 +58,7 @@ export default async function BlogIndexPage() {
     };
     await dbConnect();
     // Ensure we fetch published posts
-    const posts = await BlogPost.find({ published: true }).sort({ publishedAt: -1 }).limit(10).populate("author", "name");
+    const posts: BlogPostType[] = await BlogPost.find({ published: true }).sort({ publishedAt: -1 }).limit(10).populate("author", "name");
 
     return (
         <div className="flex flex-col min-h-screen">
@@ -83,7 +96,7 @@ export default async function BlogIndexPage() {
                     </div>
                 ) : (
                     <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
-                        {posts.map((post: any, i: number) => (
+                        {posts.map((post: BlogPostType, i: number) => (
                             <Link
                                 href={`/blog/${post.slug}`}
                                 key={post._id.toString()}

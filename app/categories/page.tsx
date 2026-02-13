@@ -19,9 +19,17 @@ export const metadata: Metadata = {
     },
 };
 
+interface CategoryType {
+    _id: string;
+    slug: string;
+    name: string;
+    description?: string;
+}
+
 export default async function CategoriesIndexPage() {
     const baseUrl = process.env.NEXTAUTH_URL || "https://saascomparepro.com";
 
+    // ... rest of breadcrumbJsonLd ...
     const breadcrumbJsonLd = {
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
@@ -40,7 +48,7 @@ export default async function CategoriesIndexPage() {
             }
         ]
     };
-    let categories = [];
+    let categories: CategoryType[] = [];
     let error = null;
 
     try {
@@ -93,7 +101,7 @@ export default async function CategoriesIndexPage() {
                     </div>
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {categories.map((cat: any, i: number) => (
+                        {categories.map((cat: CategoryType, i: number) => (
                             <Link
                                 href={`/category/${cat.slug}`}
                                 key={cat._id.toString()}

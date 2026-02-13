@@ -14,21 +14,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const categories = await Category.find({}).select('slug updatedAt');
     const posts = await BlogPost.find({ published: true }).select('slug updatedAt');
 
-    const toolUrls = tools.map((tool: any) => ({
+    const toolUrls = tools.map((tool: { slug: string; updatedAt: Date }) => ({
         url: `${baseUrl}/product/${tool.slug}`,
         lastModified: tool.updatedAt,
         changeFrequency: 'weekly' as const,
         priority: 0.8,
     }));
 
-    const categoryUrls = categories.map((cat: any) => ({
+    const categoryUrls = categories.map((cat: { slug: string; updatedAt: Date }) => ({
         url: `${baseUrl}/category/${cat.slug}`,
         lastModified: cat.updatedAt,
         changeFrequency: 'daily' as const,
         priority: 0.9,
     }));
 
-    const postUrls = posts.map((post: any) => ({
+    const postUrls = posts.map((post: { slug: string; updatedAt: Date }) => ({
         url: `${baseUrl}/blog/${post.slug}`,
         lastModified: post.updatedAt,
         changeFrequency: 'monthly' as const,
