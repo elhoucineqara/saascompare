@@ -16,7 +16,7 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
-const baseUrl = process.env.NEXTAUTH_URL || "https://saascomparepro.com";
+const baseUrl = process.env.NEXTAUTH_URL || "https://saascompare.vercel.app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
@@ -41,20 +41,11 @@ export const metadata: Metadata = {
     siteName: "SaaS Compare Pro",
     title: "SaaS Compare Pro - Find the Best SaaS Tools",
     description: "Objective reviews and side-by-side technical comparisons of thousands of software solutions.",
-    images: [
-      {
-        url: "/og-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "SaaS Compare Pro",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "SaaS Compare Pro - Find the Best SaaS Tools",
     description: "Compare software solutions with confidence. We analyze thousands of tools so you don't have to.",
-    images: ["/og-image.jpg"],
     creator: "@saascomparepro",
   },
   robots: {

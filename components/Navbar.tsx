@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { Menu, X, Search, ChevronDown, LogOut, User, LayoutDashboard, Bell } from "lucide-react";
 import SearchModal from "./SearchModal";
+import Logo from "./Logo";
 
 export default function Navbar() {
     const { data: session } = useSession();
@@ -46,13 +47,8 @@ export default function Navbar() {
         >
             <div className="container mx-auto px-6 h-14 flex items-center justify-between">
                 {/* Logo */}
-                <Link href="/" className="flex items-center gap-3 group">
-                    <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white shadow-lg shadow-primary/30 group-hover:rotate-6 group-hover:scale-110 transition-all duration-500">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6"><path d="M3 3v18h18" /><path d="M18 17V9" /><path d="M13 17V5" /><path d="M8 17v-3" /></svg>
-                    </div>
-                    <span className="font-black text-2xl tracking-tighter text-foreground group-hover:text-primary transition-colors">
-                        SaaS<span className="text-primary italic">Compare</span>
-                    </span>
+                <Link href="/">
+                    <Logo />
                 </Link>
 
                 {/* Desktop Navigation */}

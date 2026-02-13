@@ -36,7 +36,7 @@ interface BlogPostType {
 }
 
 export default async function BlogIndexPage() {
-    const baseUrl = process.env.NEXTAUTH_URL || "https://saascomparepro.com";
+    const baseUrl = process.env.NEXTAUTH_URL || "https://saascompare.vercel.app";
 
     const breadcrumbJsonLd = {
         "@context": "https://schema.org",

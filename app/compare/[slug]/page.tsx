@@ -10,7 +10,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     const slug = decodeURIComponent(params.slug);
     const [slug1, slug2] = slug.split("-vs-");
 
-    const baseUrl = process.env.NEXTAUTH_URL || "https://saascomparepro.com";
+    const baseUrl = process.env.NEXTAUTH_URL || "https://saascompare.vercel.app";
     const url = `${baseUrl}/compare/${params.slug}`;
 
     if (!slug1 || !slug2) return { title: "Invalid Comparison" };
@@ -70,7 +70,7 @@ export default async function ComparisonPage({ params }: { params: { slug: strin
         );
     }
 
-    const baseUrl = process.env.NEXTAUTH_URL || "https://saascomparepro.com";
+    const baseUrl = process.env.NEXTAUTH_URL || "https://saascompare.vercel.app";
 
     const breadcrumbJsonLd = {
         "@context": "https://schema.org",

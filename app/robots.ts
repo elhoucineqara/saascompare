@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 
 export default function robots(): MetadataRoute.Robots {
-    const baseUrl = process.env.NEXTAUTH_URL || "https://saascomparepro.com";
+    const baseUrl = process.env.NEXTAUTH_URL || 'https://saascompare.vercel.app';
 
     return {
         rules: {

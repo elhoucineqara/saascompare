@@ -12,7 +12,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 
     if (!category) return { title: "Category Not Found" };
 
-    const baseUrl = process.env.NEXTAUTH_URL || "https://saascomparepro.com";
+    const baseUrl = process.env.NEXTAUTH_URL || "https://saascompare.vercel.app";
     const title = `Best ${category.name} Software 2024 - Reviews & Rankings`;
     const description = category.description || `Compare the top-rated ${category.name} platforms. Find the best ${category.name} tools for your business based on price, features, and objective reviews.`;
     const url = `${baseUrl}/category/${category.slug}`;
@@ -69,7 +69,7 @@ export default async function CategoryPage({ params }: { params: { slug: string 
         );
     }
 
-    const baseUrl = process.env.NEXTAUTH_URL || "https://saascomparepro.com";
+    const baseUrl = process.env.NEXTAUTH_URL || "https://saascompare.vercel.app";
     const tools: SaasToolType[] = await SaaSTool.find({ category: category._id }).sort({ isFeatured: -1, averageRating: -1 });
 
     const breadcrumbJsonLd = {

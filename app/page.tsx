@@ -13,14 +13,16 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
+  const baseUrl = process.env.NEXTAUTH_URL || "https://saascompare.vercel.app";
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "SaaS Compare Pro",
-    "url": "https://saascomparepro.com",
+    "url": baseUrl,
     "potentialAction": {
       "@type": "SearchAction",
-      "target": "https://saascomparepro.com/search?q={search_term_string}",
+      "target": `${baseUrl}/search?q={search_term_string}`,
       "query-input": "required name=search_term_string"
     },
     "publisher": {
@@ -28,7 +30,7 @@ export default function Home() {
       "name": "SaaS Compare Pro",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://saascomparepro.com/logo.png"
+        "url": `${baseUrl}/icon.svg`
       }
     }
   };

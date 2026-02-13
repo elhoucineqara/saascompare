@@ -48,7 +48,7 @@ export default function ContactPage() {
 
                         <div className="grid gap-6">
                             {[
-                                { title: "Email Us", info: "support@saascomparepro.com", icon: Mail, label: "Response in 24h" },
+                                { title: "Email Us", info: "support@saascompare.vercel.app", icon: Mail, label: "Response in 24h" },
                                 { title: "Global Sales", info: "+1 (555) 123-4567", icon: Phone, label: "Mon-Fri / 9am-6pm" },
                                 { title: "Official HQ", info: "123 Innovation Blvd, SF", icon: MapPin, label: "Global HQ" }
                             ].map((item, i) => (

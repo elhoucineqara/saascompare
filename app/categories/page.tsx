@@ -27,7 +27,7 @@ interface CategoryType {
 }
 
 export default async function CategoriesIndexPage() {
-    const baseUrl = process.env.NEXTAUTH_URL || "https://saascomparepro.com";
+    const baseUrl = process.env.NEXTAUTH_URL || "https://saascompare.vercel.app";
 
     // ... rest of breadcrumbJsonLd ...
     const breadcrumbJsonLd = {

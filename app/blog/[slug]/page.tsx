@@ -12,7 +12,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 
     if (!post) return { title: "Post Not Found" };
 
-    const baseUrl = process.env.NEXTAUTH_URL || "https://saascomparepro.com";
+    const baseUrl = process.env.NEXTAUTH_URL || "https://saascompare.vercel.app";
     const title = post.seoTitle || post.title;
     const description = post.seoDescription || post.excerpt;
     const url = `${baseUrl}/blog/${post.slug}`;
@@ -49,7 +49,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
 
     if (!post) return notFound();
 
-    const baseUrl = process.env.NEXTAUTH_URL || "https://saascomparepro.com";
+    const baseUrl = process.env.NEXTAUTH_URL || "https://saascompare.vercel.app";
 
     const blogJsonLd = {
         "@context": "https://schema.org",

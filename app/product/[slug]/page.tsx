@@ -11,7 +11,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 
     if (!tool) return { title: "Product Not Found" };
 
-    const baseUrl = process.env.NEXTAUTH_URL || "https://saascomparepro.com";
+    const baseUrl = process.env.NEXTAUTH_URL || "https://saascompare.vercel.app";
     const title = `${tool.name} Review 2024 - Pricing, Features & Alternatives`;
     const description = tool.shortDescription;
     const url = `${baseUrl}/product/${tool.slug}`;
@@ -59,7 +59,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
         );
     }
 
-    const baseUrl = process.env.NEXTAUTH_URL || "https://saascomparepro.com";
+    const baseUrl = process.env.NEXTAUTH_URL || "https://saascompare.vercel.app";
 
     const productJsonLd = {
         "@context": "https://schema.org",

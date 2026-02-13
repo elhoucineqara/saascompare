@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Logo from "./Logo";
 
 export default function Footer() {
     const pathname = usePathname();
@@ -13,16 +14,11 @@ export default function Footer() {
         <footer className="relative bg-card border-t py-20 overflow-hidden">
             <div className="absolute inset-0 -z-10 bg-grid-pattern opacity-20"></div>
             <div className="container px-6 mx-auto">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-                    <div className="col-span-1 md:col-span-1 space-y-6">
-                        <Link href="/" className="flex items-center gap-3 group">
-                            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white shadow-lg shadow-primary/30">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5"><path d="M3 3v18h18" /><path d="M18 17V9" /><path d="M13 17V5" /><path d="M8 17v-3" /></svg>
-                            </div>
-                            <span className="font-black text-xl tracking-tighter">SaaS<span className="text-primary italic">Compare</span></span>
-                        </Link>
-                        <p className="text-sm text-muted-foreground font-medium leading-relaxed">
-                            Helping businesses find the perfect software solutions through data-driven analysis and expert reviews.
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                    <div className="space-y-6">
+                        <Logo />
+                        <p className="text-muted-foreground text-sm leading-relaxed">
+                            Empowering businesses to find the perfect software solutions through objective analysis and expert insights.
                         </p>
                     </div>
                     <div>

@@ -5,7 +5,7 @@ import Category from "@/models/Category";
 import BlogPost from "@/models/BlogPost";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    const baseUrl = process.env.NEXTAUTH_URL || "https://saascomparepro.com";
+    const baseUrl = process.env.NEXTAUTH_URL || "https://saascompare.vercel.app";
 
     await dbConnect();
 
