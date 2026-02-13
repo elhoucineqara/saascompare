@@ -1,9 +1,14 @@
 import { Shield, Lock, Eye, FileText, Zap } from "lucide-react";
 import Link from "next/link";
 
-export const metadata = {
-    title: "Privacy Policy - SaaS Compare Pro",
-    description: "Learn how we protect your data and respect your privacy."
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Privacy Policy & Data Security - SaaS Compare Pro",
+    description: "Learn how we protect your data and respect your privacy. Our transparent data handling practices ensure your trust is always maintained.",
+    alternates: {
+        canonical: "/privacy",
+    },
 };
 
 export default function PrivacyPage() {

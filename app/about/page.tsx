@@ -2,9 +2,14 @@ import { Target, Users, Globe, Rocket, ShieldCheck, Zap } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
-export const metadata = {
-    title: "About Us - SaaS Compare Pro",
-    description: "Learn about our mission to democratize software selection through data-driven analysis."
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "About Our Mission - SaaS Compare Pro",
+    description: "Learn about our mission to democratize software selection. We provide unbiased, data-driven analysis to help businesses find the perfect tech stack.",
+    alternates: {
+        canonical: "/about",
+    },
 };
 
 export default function AboutPage() {

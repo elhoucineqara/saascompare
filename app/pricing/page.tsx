@@ -1,9 +1,14 @@
 import Link from "next/link";
 import { Check } from "lucide-react";
 
-export const metadata = {
-    title: "Pricing Comparison - SaaS Compare Pro",
-    description: "Find the best deals on SaaS tools."
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "SaaS Pricing Comparison & Analysis - SaaS Compare Pro",
+    description: "Compare pricing models across hundreds of SaaS tools. Find the best value CRM, Marketing, and Dev tools for your budget.",
+    alternates: {
+        canonical: "/pricing",
+    },
 };
 
 export default function PricingPage() {

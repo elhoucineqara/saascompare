@@ -9,14 +9,36 @@ import { notFound } from "next/navigation";
 export async function generateMetadata({ params }: { params: { slug: string } }) {
     const slug = decodeURIComponent(params.slug);
     const [slug1, slug2] = slug.split("-vs-");
+
+    const baseUrl = process.env.NEXTAUTH_URL || "https://saascomparepro.com";
+    const url = `${baseUrl}/compare/${params.slug}`;
+
     if (!slug1 || !slug2) return { title: "Invalid Comparison" };
 
-    const name1 = slug1.charAt(0).toUpperCase() + slug1.slice(1);
-    const name2 = slug2.charAt(0).toUpperCase() + slug2.slice(1);
+    const name1 = slug1.trim().charAt(0).toUpperCase() + slug1.trim().slice(1);
+    const name2 = slug2.trim().charAt(0).toUpperCase() + slug2.trim().slice(1);
+
+    const title = `${name1} vs ${name2} - Which is Better in 2024?`;
+    const description = `Detailed comparison of ${name1} and ${name2}. Compare features, pricing, and pros/cons to choose the best SaaS tool for your business.`;
 
     return {
-        title: `${name1} vs ${name2} - Which is Better in 2024?`,
-        description: `Detailed comparison of ${name1} and ${name2}. Compare features, pricing, and pros/cons.`
+        title,
+        description,
+        alternates: {
+            canonical: url,
+        },
+        openGraph: {
+            title,
+            description,
+            url,
+            siteName: "SaaS Compare Pro",
+            type: "article",
+        },
+        twitter: {
+            card: "summary_large_image",
+            title,
+            description,
+        },
     };
 }
 
@@ -48,8 +70,39 @@ export default async function ComparisonPage({ params }: { params: { slug: strin
         );
     }
 
+    const baseUrl = process.env.NEXTAUTH_URL || "https://saascomparepro.com";
+
+    const breadcrumbJsonLd = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": baseUrl
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Compare",
+                "item": `${baseUrl}/compare`
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": `${tool1.name} vs ${tool2.name}`,
+                "item": `${baseUrl}/compare/${params.slug}`
+            }
+        ]
+    };
+
     return (
         <div className="min-h-screen bg-background selection:bg-primary/20 selection:text-primary">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+            />
             {/* Header / Hero */}
             <section className="relative overflow-hidden border-b py-24 md:py-36 px-4 bg-background">
                 <div className="absolute inset-0 -z-10 bg-grid-pattern opacity-40"></div>

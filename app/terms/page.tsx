@@ -1,9 +1,14 @@
 import { Gavel, Scale, FileCheck, HelpCircle } from "lucide-react";
 import Link from "next/link";
 
-export const metadata = {
-    title: "Terms of Service - SaaS Compare Pro",
-    description: "Read our terms of service and website usage agreements."
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Terms of Service & Usage Agreement - SaaS Compare Pro",
+    description: "Read our terms of service and website usage agreements. Understand the legal framework for using our comparison platform and services.",
+    alternates: {
+        canonical: "/terms",
+    },
 };
 
 export default function TermsPage() {

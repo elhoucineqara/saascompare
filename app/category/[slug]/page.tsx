@@ -9,9 +9,32 @@ import { ArrowLeft, ArrowRight, Star, Layers, Zap } from "lucide-react";
 export async function generateMetadata({ params }: { params: { slug: string } }) {
     await dbConnect();
     const category = await Category.findOne({ slug: params.slug });
+
+    if (!category) return { title: "Category Not Found" };
+
+    const baseUrl = process.env.NEXTAUTH_URL || "https://saascomparepro.com";
+    const title = `Best ${category.name} Software 2024 - Reviews & Rankings`;
+    const description = category.description || `Compare the top-rated ${category.name} platforms. Find the best ${category.name} tools for your business based on price, features, and objective reviews.`;
+    const url = `${baseUrl}/category/${category.slug}`;
+
     return {
-        title: category ? `Best ${category.name} Software - SaaS Compare Pro` : "Category Not Found",
-        description: category?.description || "Browse top rated software tools.",
+        title,
+        description,
+        alternates: {
+            canonical: url,
+        },
+        openGraph: {
+            title,
+            description,
+            url,
+            siteName: "SaaS Compare Pro",
+            type: "website",
+        },
+        twitter: {
+            card: "summary_large_image",
+            title,
+            description,
+        },
     };
 }
 
@@ -34,10 +57,57 @@ export default async function CategoryPage({ params }: { params: { slug: string 
         );
     }
 
+    const baseUrl = process.env.NEXTAUTH_URL || "https://saascomparepro.com";
     const tools = await SaaSTool.find({ category: category._id }).sort({ isFeatured: -1, averageRating: -1 });
+
+    const breadcrumbJsonLd = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": baseUrl
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Categories",
+                "item": `${baseUrl}/categories`
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": category.name,
+                "item": `${baseUrl}/category/${category.slug}`
+            }
+        ]
+    };
+
+    const itemListJsonLd = {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "name": `Top ${category.name} Software`,
+        "description": `Comparison of the best ${category.name} tools.`,
+        "itemListElement": tools.map((tool: any, index: number) => ({
+            "@type": "ListItem",
+            "position": index + 1,
+            "url": `${baseUrl}/product/${tool.slug}`,
+            "name": tool.name
+        }))
+    };
 
     return (
         <div className="flex flex-col min-h-screen bg-background text-foreground">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
+            />
             {/* Header Section */}
             <section className="relative py-16 md:py-24 border-b overflow-hidden">
                 <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"></div>

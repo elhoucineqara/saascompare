@@ -5,18 +5,54 @@ import Image from "next/image";
 import { format } from "date-fns";
 import { ArrowRight, Calendar, User } from "lucide-react";
 
-export const metadata = {
-    title: "SaaS Insights & Guides - Blog",
-    description: "Expert articles on software, productivity, and digital growth."
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "SaaS Insights, Guides & Trends - Blog | SaaS Compare Pro",
+    description: "Expert articles on software, productivity hacks, and digital growth trends. Stay ahead with our deep dives into the SaaS ecosystem.",
+    alternates: {
+        canonical: "/blog",
+    },
+    openGraph: {
+        title: "SaaS Insights & Blog - SaaS Compare Pro",
+        description: "Expert articles, comparison guides, and productivity hacks to help you scale faster.",
+        url: "/blog",
+        siteName: "SaaS Compare Pro",
+        type: "website",
+    },
 };
 
 export default async function BlogIndexPage() {
+    const baseUrl = process.env.NEXTAUTH_URL || "https://saascomparepro.com";
+
+    const breadcrumbJsonLd = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": baseUrl
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Blog",
+                "item": `${baseUrl}/blog`
+            }
+        ]
+    };
     await dbConnect();
     // Ensure we fetch published posts
     const posts = await BlogPost.find({ published: true }).sort({ publishedAt: -1 }).limit(10).populate("author", "name");
 
     return (
         <div className="flex flex-col min-h-screen">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+            />
 
             <section className="relative py-24 md:py-36 bg-background border-b overflow-hidden">
                 <div className="absolute inset-0 -z-10 bg-grid-pattern opacity-40"></div>
@@ -47,7 +83,7 @@ export default async function BlogIndexPage() {
                     </div>
                 ) : (
                     <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
-                        {posts.map((post, i) => (
+                        {posts.map((post: any, i: number) => (
                             <Link
                                 href={`/blog/${post.slug}`}
                                 key={post._id.toString()}

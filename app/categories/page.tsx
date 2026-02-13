@@ -3,12 +3,43 @@ import Category from "@/models/Category";
 import Link from "next/link";
 import { Folder, ArrowRight } from "lucide-react";
 
-export const metadata = {
-    title: "All Categories - SaaS Compare Pro",
-    description: "Browse all software categories."
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Software Categories - SaaS Compare Pro",
+    description: "Browse our comprehensive directory of the best SaaS tools, organized by category. Find the best CRM, Marketing, Dev Tools, and more to scale your business.",
+    alternates: {
+        canonical: "/categories",
+    },
+    openGraph: {
+        title: "Software Categories - SaaS Compare Pro",
+        description: "Explore top-rated software solutions organized by category. Side-by-side comparisons and expert reviews.",
+        url: "/categories",
+        siteName: "SaaS Compare Pro",
+    },
 };
 
 export default async function CategoriesIndexPage() {
+    const baseUrl = process.env.NEXTAUTH_URL || "https://saascomparepro.com";
+
+    const breadcrumbJsonLd = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": baseUrl
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Categories",
+                "item": `${baseUrl}/categories`
+            }
+        ]
+    };
     let categories = [];
     let error = null;
 
@@ -22,6 +53,10 @@ export default async function CategoriesIndexPage() {
 
     return (
         <div className="flex flex-col min-h-screen">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+            />
 
             <section className="relative py-24 md:py-36 bg-background overflow-hidden border-b">
                 <div className="absolute inset-0 -z-10 bg-grid-pattern opacity-40"></div>
@@ -58,7 +93,7 @@ export default async function CategoriesIndexPage() {
                     </div>
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {categories.map((cat, i) => (
+                        {categories.map((cat: any, i: number) => (
                             <Link
                                 href={`/category/${cat.slug}`}
                                 key={cat._id.toString()}

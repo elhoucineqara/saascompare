@@ -1,9 +1,14 @@
 import { Mail, MapPin, Phone, MessageSquare, Send, Globe, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
-export const metadata = {
-    title: "Contact Us - SaaS Compare Pro",
-    description: "Get in touch with our team of software experts."
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Contact Our SaaS Experts - SaaS Compare Pro",
+    description: "Get in touch with our team for support, tool listing requests, or partnership inquiries. We're here to help you scale your business.",
+    alternates: {
+        canonical: "/contact",
+    },
 };
 
 export default function ContactPage() {

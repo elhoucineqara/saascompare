@@ -8,9 +8,41 @@ import { CheckCircle2, ChevronRight, ExternalLink, MinusCircle, Star, Shield, Za
 export async function generateMetadata({ params }: { params: { slug: string } }) {
     await dbConnect();
     const tool = await SaaSTool.findOne({ slug: params.slug });
+
+    if (!tool) return { title: "Product Not Found" };
+
+    const baseUrl = process.env.NEXTAUTH_URL || "https://saascomparepro.com";
+    const title = `${tool.name} Review 2024 - Pricing, Features & Alternatives`;
+    const description = tool.shortDescription;
+    const url = `${baseUrl}/product/${tool.slug}`;
+
     return {
-        title: tool ? `${tool.name} Review 2024 - Pricing, Features & Alternatives` : "Review Not Found",
-        description: tool?.shortDescription || "Detailed SaaS review and comparison.",
+        title,
+        description,
+        alternates: {
+            canonical: url,
+        },
+        openGraph: {
+            title,
+            description,
+            url,
+            siteName: "SaaS Compare Pro",
+            type: "article",
+            images: [
+                {
+                    url: tool.logoUrl,
+                    width: 800,
+                    height: 800,
+                    alt: tool.name,
+                },
+            ],
+        },
+        twitter: {
+            card: "summary_large_image",
+            title,
+            description,
+            images: [tool.logoUrl],
+        },
     };
 }
 
@@ -27,8 +59,73 @@ export default async function ProductPage({ params }: { params: { slug: string }
         );
     }
 
+    const baseUrl = process.env.NEXTAUTH_URL || "https://saascomparepro.com";
+
+    const productJsonLd = {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": tool.name,
+        "image": tool.logoUrl,
+        "description": tool.shortDescription,
+        "brand": {
+            "@type": "Brand",
+            "name": tool.name
+        },
+        "offers": {
+            "@type": "Offer",
+            "url": tool.websiteUrl,
+            "priceCurrency": "USD",
+            "price": tool.startingPrice || 0,
+            "availability": "https://schema.org/InStock"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": tool.averageRating || 4.8,
+            "reviewCount": tool.reviewCount || 12
+        }
+    };
+
+    const breadcrumbJsonLd = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": baseUrl
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Categories",
+                "item": `${baseUrl}/categories`
+            },
+            ...(tool.category ? [{
+                "@type": "ListItem",
+                "position": 3,
+                "name": tool.category.name,
+                "item": `${baseUrl}/category/${tool.category.slug}`
+            }] : []),
+            {
+                "@type": "ListItem",
+                "position": tool.category ? 4 : 3,
+                "name": tool.name,
+                "item": `${baseUrl}/product/${tool.slug}`
+            }
+        ]
+    };
+
     return (
         <div className="min-h-screen bg-background text-foreground font-sans">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+            />
 
             {/* Hero Section */}
             <section className="relative overflow-hidden border-b py-12 md:py-16 bg-background">

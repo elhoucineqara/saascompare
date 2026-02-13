@@ -5,7 +5,7 @@ import Category from "@/models/Category";
 import BlogPost from "@/models/BlogPost";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';
+    const baseUrl = process.env.NEXTAUTH_URL || "https://saascomparepro.com";
 
     await dbConnect();
 
@@ -14,21 +14,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const categories = await Category.find({}).select('slug updatedAt');
     const posts = await BlogPost.find({ published: true }).select('slug updatedAt');
 
-    const toolUrls = tools.map((tool) => ({
+    const toolUrls = tools.map((tool: any) => ({
         url: `${baseUrl}/product/${tool.slug}`,
         lastModified: tool.updatedAt,
         changeFrequency: 'weekly' as const,
         priority: 0.8,
     }));
 
-    const categoryUrls = categories.map((cat) => ({
+    const categoryUrls = categories.map((cat: any) => ({
         url: `${baseUrl}/category/${cat.slug}`,
         lastModified: cat.updatedAt,
         changeFrequency: 'daily' as const,
         priority: 0.9,
     }));
 
-    const postUrls = posts.map((post) => ({
+    const postUrls = posts.map((post: any) => ({
         url: `${baseUrl}/blog/${post.slug}`,
         lastModified: post.updatedAt,
         changeFrequency: 'monthly' as const,

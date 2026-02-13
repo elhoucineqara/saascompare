@@ -1,13 +1,44 @@
-
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, CheckCircle2, Zap, BarChart3, Globe2, Layers, Search, ShieldCheck, HelpCircle, Users, TrendingUp, ChevronRight } from "lucide-react";
 import HeroSearch from "@/components/HeroSearch";
 
+export const metadata: Metadata = {
+  title: "SaaS Compare Pro - Find the Best Tools for Your Business",
+  description: "Objective reviews and technical comparisons of thousands of software solutions. Compare CRM, Marketing, Dev Tools, and more to scale with confidence.",
+  alternates: {
+    canonical: "/",
+  },
+};
 
 export default function Home() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "SaaS Compare Pro",
+    "url": "https://saascomparepro.com",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://saascomparepro.com/search?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "SaaS Compare Pro",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://saascomparepro.com/logo.png"
+      }
+    }
+  };
+
   return (
     <div className="flex flex-col min-h-screen selection:bg-primary/30 selection:text-primary">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden bg-background">
         {/* Background Effects */}

@@ -9,9 +9,36 @@ import ReactMarkdown from "react-markdown";
 export async function generateMetadata({ params }: { params: { slug: string } }) {
     await dbConnect();
     const post = await BlogPost.findOne({ slug: params.slug });
+
+    if (!post) return { title: "Post Not Found" };
+
+    const baseUrl = process.env.NEXTAUTH_URL || "https://saascomparepro.com";
+    const title = post.seoTitle || post.title;
+    const description = post.seoDescription || post.excerpt;
+    const url = `${baseUrl}/blog/${post.slug}`;
+
     return {
-        title: post?.seoTitle || post?.title || "Blog Post",
-        description: post?.seoDescription || post?.excerpt || "Read our latest article.",
+        title: `${title} | SaaS Compare Pro`,
+        description,
+        alternates: {
+            canonical: url,
+        },
+        openGraph: {
+            title,
+            description,
+            url,
+            siteName: "SaaS Compare Pro",
+            type: "article",
+            publishedTime: post.publishedAt,
+            authors: [post.author?.name || "SaaS Expert"],
+            images: post.coverImage ? [post.coverImage] : [],
+        },
+        twitter: {
+            card: "summary_large_image",
+            title,
+            description,
+            images: post.coverImage ? [post.coverImage] : [],
+        },
     };
 }
 
@@ -22,8 +49,64 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
 
     if (!post) return notFound();
 
+    const baseUrl = process.env.NEXTAUTH_URL || "https://saascomparepro.com";
+
+    const blogJsonLd = {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": post.title,
+        "image": post.coverImage,
+        "datePublished": post.publishedAt,
+        "author": {
+            "@type": "Person",
+            "name": post.author?.name || "SaaS Expert"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "SaaS Compare Pro",
+            "logo": {
+                "@type": "ImageObject",
+                "url": `${baseUrl}/logo.png`
+            }
+        },
+        "description": post.excerpt
+    };
+
+    const breadcrumbJsonLd = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": baseUrl
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Blog",
+                "item": `${baseUrl}/blog`
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": post.title,
+                "item": `${baseUrl}/blog/${post.slug}`
+            }
+        ]
+    };
+
     return (
         <article className="min-h-screen bg-background pb-20">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(blogJsonLd) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+            />
             {/* Header */}
             <header className="relative py-20 md:py-24 border-b overflow-hidden">
                 <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"></div>
