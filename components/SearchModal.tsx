@@ -10,6 +10,7 @@ interface ToolResult {
     slug: string;
     name: string;
     logoUrl?: string;
+    shortDescription: string;
 }
 
 interface CategoryResult {
