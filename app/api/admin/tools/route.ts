@@ -6,7 +6,7 @@ import SaaSTool from "@/models/SaaSTool";
 import Category from "@/models/Category"; // Ensure Category model is loaded
 
 export async function GET(req: Request) {
-    constsession = await getServerSession(authOptions);
+    const session = await getServerSession(authOptions);
 
     if (!session || session.user.role !== "admin") {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -38,8 +38,8 @@ export async function POST(req: Request) {
         await dbConnect();
         const tool = await SaaSTool.create(body);
         return NextResponse.json(tool, { status: 201 });
-    } catch (error: any) {
+    } catch (error: Error | any) {
         console.error(error);
-        return NextResponse.json({ error: error.message || "Failed to create tool" }, { status: 400 });
+        return NextResponse.json({ error: (error as Error).message || "Failed to create tool" }, { status: 400 });
     }
 }

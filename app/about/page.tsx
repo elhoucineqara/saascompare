@@ -27,7 +27,7 @@ export default function AboutPage() {
                         <span className="text-gradient italic">Software Selection</span>
                     </h1>
                     <p className="max-w-3xl mx-auto text-xl md:text-2xl text-muted-foreground font-medium animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
-                        We're bringing elite-level data analysis and market transparency to every business, from startups to enterprises.
+                        We&apos;re bringing elite-level data analysis and market transparency to every business, from startups to enterprises.
                     </p>
                 </div>
             </section>
@@ -39,7 +39,7 @@ export default function AboutPage() {
                         <div className="space-y-4">
                             <h2 className="text-4xl font-black tracking-tight">Radical Transparency in a <span className="text-primary">$200B+</span> Market.</h2>
                             <p className="text-xl text-muted-foreground leading-relaxed font-medium">
-                                Choosing the right software shouldn't be a guessing game. At SaaS Compare Pro, we aggregate millions of data points, verified reviews, and real-world pricing to give you the truth behind the marketing.
+                                Choosing the right software shouldn&apos;t be a guessing game. At SaaS Compare Pro, we aggregate millions of data points, verified reviews, and real-world pricing to give you the truth behind the marketing.
                             </p>
                         </div>
                         <div className="grid sm:grid-cols-2 gap-6">

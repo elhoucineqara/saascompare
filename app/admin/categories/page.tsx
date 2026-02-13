@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Plus, Trash, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 
 interface Category {
     _id: string;

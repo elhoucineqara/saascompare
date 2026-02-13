@@ -1,6 +1,5 @@
 import dbConnect from "@/lib/mongodb";
 import BlogPost from "@/models/BlogPost";
-import User from "@/models/User"; // Import for author population
 import Image from "next/image";
 import Link from "next/link";
 import { format } from "date-fns";

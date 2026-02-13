@@ -102,8 +102,8 @@ export default function HeroSearch() {
                                         className="flex items-center gap-3 p-3 rounded-xl hover:bg-white/5 transition-colors group"
                                         onClick={() => setShowSuggestions(false)}
                                     >
-                                        <div className="w-8 h-8 bg-white rounded-lg p-1.5 shrink-0 border border-white/10">
-                                            <img src={tool.logoUrl} alt={tool.name} className="w-full h-full object-contain" />
+                                        <div className="relative w-8 h-8 bg-white rounded-lg p-1.5 shrink-0 border border-white/10">
+                                            <Image src={tool.logoUrl} alt={tool.name} fill className="object-contain p-1" />
                                         </div>
                                         <span className="font-bold text-sm truncate">{tool.name}</span>
                                         <span className="ml-auto text-[10px] font-black text-primary opacity-0 group-hover:opacity-100 transition-opacity">VIEW</span>
@@ -144,7 +144,7 @@ export default function HeroSearch() {
                             className="text-[10px] font-black uppercase tracking-widest text-primary hover:underline"
                             onClick={() => setShowSuggestions(false)}
                         >
-                            View all results for "{query}"
+                            View all results for &quot;{query}&quot;
                         </Link>
                     </div>
                 </div>

@@ -7,7 +7,7 @@ export async function GET() {
         await dbConnect();
         const categories = await Category.find({}).sort({ name: 1 });
         return NextResponse.json(categories);
-    } catch (error) {
+    } catch {
         return NextResponse.json({ error: "Failed to fetch categories" }, { status: 500 });
     }
 }
@@ -19,7 +19,7 @@ export async function POST(req: Request) {
         await dbConnect();
         const category = await Category.create(body);
         return NextResponse.json(category, { status: 201 });
-    } catch (error) {
+    } catch {
         return NextResponse.json({ error: "Failed to create category" }, { status: 500 });
     }
 }

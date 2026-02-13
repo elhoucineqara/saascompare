@@ -93,7 +93,7 @@ export default function Home() {
           <div className="text-center mb-24 space-y-4">
             <h2 className="text-4xl font-black tracking-tight sm:text-5xl md:text-6xl text-gradient">Simplify Your Decision</h2>
             <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl font-medium">
-              We've meticulously reviewed thousands of tools so you don't have to.
+              We&apos;ve meticulously reviewed thousands of tools so you don&apos;t have to.
             </p>
           </div>
 

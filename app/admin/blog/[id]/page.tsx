@@ -59,7 +59,7 @@ export default function AdminBlogEdit({ params }: PostFormProps) {
 
         const payload = {
             ...formData,
-            tags: formData.tags.split(",").map((t) => t.trim()).filter(Boolean),
+            tags: formData.tags.split(",").map((t: string) => t.trim()).filter(Boolean),
         };
 
         try {

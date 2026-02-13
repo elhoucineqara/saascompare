@@ -21,7 +21,7 @@ export default function ContactPage() {
                         <MessageSquare className="w-3.5 h-3.5 mr-2" /> Global Support
                     </div>
                     <h1 className="text-5xl md:text-8xl font-black tracking-tight animate-fade-in-up" style={{ animationDelay: "0.1s" }}>
-                        Let's Talk <br />
+                        Let&apos;s Talk <br />
                         <span className="text-gradient italic">Results</span>
                     </h1>
                     <p className="max-w-3xl mx-auto text-xl md:text-2xl text-muted-foreground font-medium animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
@@ -37,7 +37,7 @@ export default function ContactPage() {
                         <div className="space-y-6">
                             <h2 className="text-4xl font-black tracking-tight">Direct Access to <span className="text-primary italic">Expertise</span>.</h2>
                             <p className="text-xl text-muted-foreground leading-relaxed font-medium">
-                                We're more than just a registry. We're a community of software enthusiasts dedicated to helping you scale.
+                                We&apos;re more than just a registry. We&apos;re a community of software enthusiasts dedicated to helping you scale.
                             </p>
                         </div>
 

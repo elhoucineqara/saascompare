@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useSession, signOut } from "next-auth/react";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
@@ -92,7 +93,7 @@ export default function Navbar() {
                         <div className="relative group">
                             <button className="flex items-center gap-3 pl-2 pr-4 py-1.5 rounded-full border border-border/50 bg-card/50 hover:bg-card hover:border-primary/30 transition-all">
                                 {session.user.image ? (
-                                    <img src={session.user.image} alt={session.user.name || "User"} className="w-8 h-8 rounded-full border border-white/20" />
+                                    <Image src={session.user.image} alt={session.user.name || "User"} width={32} height={32} className="rounded-full border border-white/20" />
                                 ) : (
                                     <div className="w-8 h-8 bg-primary/10 text-primary rounded-full flex items-center justify-center font-black text-xs">
                                         {session.user.name?.charAt(0) || "U"}

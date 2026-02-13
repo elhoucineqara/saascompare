@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Search, X, Loader2, Package, Folder, Scale, ArrowRight, CornerDownLeft } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 interface SearchResult {
@@ -137,7 +138,7 @@ export default function SearchModal({ isOpen, onClose }: { isOpen: boolean; onCl
                     ) : flattenedResults.length > 0 ? (
                         <div className="p-4 space-y-6">
                             {/* Tools Section */}
-                            {results?.tools.length! > 0 && (
+                            {(results?.tools?.length ?? 0) > 0 && (
                                 <section>
                                     <h4 className="px-4 mb-2 text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60">Tools</h4>
                                     <div className="space-y-1">
@@ -151,8 +152,13 @@ export default function SearchModal({ isOpen, onClose }: { isOpen: boolean; onCl
                                                     className={`w-full flex items-center gap-4 p-4 rounded-2xl transition-all group ${selectedIndex === globalIndex ? "bg-primary/10 border-primary/20 shadow-sm" : "hover:bg-white/5 border-transparent"}`}
                                                     onMouseEnter={() => setSelectedIndex(globalIndex)}
                                                 >
-                                                    <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center p-2 shadow-sm shrink-0 border border-white/10">
-                                                        <img src={tool.logoUrl || "https://avatar.vercel.sh/saas"} alt={tool.name} className="w-full h-full object-contain" />
+                                                    <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center p-2 shadow-sm shrink-0 border border-white/10 relative">
+                                                        <Image
+                                                            src={tool.logoUrl || "https://avatar.vercel.sh/saas"}
+                                                            alt={tool.name}
+                                                            fill
+                                                            className="object-contain p-2"
+                                                        />
                                                     </div>
                                                     <div className="flex-1 min-w-0">
                                                         <p className="font-bold text-sm truncate">{tool.name}</p>
@@ -167,12 +173,12 @@ export default function SearchModal({ isOpen, onClose }: { isOpen: boolean; onCl
                             )}
 
                             {/* Categories Section */}
-                            {results?.categories.length! > 0 && (
+                            {(results?.categories?.length ?? 0) > 0 && (
                                 <section>
                                     <h4 className="px-4 mb-2 text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60">Categories</h4>
                                     <div className="space-y-1">
                                         {results?.categories.map((cat, i) => {
-                                            const globalIndex = results?.tools.length! + i;
+                                            const globalIndex = results?.tools.length + i;
                                             return (
                                                 <Link
                                                     key={cat.slug}
@@ -196,12 +202,12 @@ export default function SearchModal({ isOpen, onClose }: { isOpen: boolean; onCl
                             )}
 
                             {/* Comparisons Section */}
-                            {results?.comparisons.length! > 0 && (
+                            {(results?.comparisons?.length ?? 0) > 0 && (
                                 <section>
                                     <h4 className="px-4 mb-2 text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60">Comparisons</h4>
                                     <div className="space-y-1">
                                         {results?.comparisons.map((comp, i) => {
-                                            const globalIndex = results?.tools.length! + results?.categories.length! + i;
+                                            const globalIndex = results?.tools.length + results?.categories.length + i;
                                             return (
                                                 <Link
                                                     key={comp.slug}
@@ -230,7 +236,7 @@ export default function SearchModal({ isOpen, onClose }: { isOpen: boolean; onCl
                                 <Package className="w-8 h-8" />
                             </div>
                             <div>
-                                <h3 className="text-lg font-black tracking-tight">No results for "{query}"</h3>
+                                <h3 className="text-lg font-black tracking-tight">No results for &quot;{query}&quot;</h3>
                                 <p className="text-muted-foreground text-sm font-medium">Try another keyword or browse our categories.</p>
                             </div>
                             <Link

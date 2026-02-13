@@ -4,7 +4,7 @@ import Category from "@/models/Category";
 import SaaSTool from "@/models/SaaSTool";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, Star, Layers, Zap, CheckCircle2 } from "lucide-react";
+import { ArrowLeft, ArrowRight, Star, Layers, Zap } from "lucide-react";
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
     await dbConnect();
@@ -26,7 +26,7 @@ export default async function CategoryPage({ params }: { params: { slug: string 
                     <Layers className="w-10 h-10" />
                 </div>
                 <h1 className="text-3xl font-bold mb-4">Category Not Found</h1>
-                <p className="text-muted-foreground mb-8 max-w-md">The software category you're looking for doesn't exist or has been moved.</p>
+                <p className="text-muted-foreground mb-8 max-w-md">The software category you&apos;re looking for doesn&apos;t exist or has been moved.</p>
                 <Link href="/categories" className="bg-primary text-primary-foreground px-8 py-3 rounded-full font-bold hover:bg-primary/90 transition-all shadow-md">
                     Browse All Categories
                 </Link>
@@ -86,7 +86,7 @@ export default async function CategoryPage({ params }: { params: { slug: string 
                                     />
                                     {tool.isFeatured && (
                                         <div className="absolute top-4 right-4 bg-primary text-primary-foreground text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-widest shadow-sm flex items-center gap-1">
-                                            <Zap className="w-3 h-3 fill-current" /> Editor's Choice
+                                            <Zap className="w-3 h-3 fill-current" /> Editor&apos;s Choice
                                         </div>
                                     )}
                                 </div>
@@ -130,7 +130,7 @@ export default async function CategoryPage({ params }: { params: { slug: string 
                             <Star className="w-10 h-10 text-muted-foreground" />
                         </div>
                         <h3 className="text-2xl font-bold mb-3">No tools found</h3>
-                        <p className="text-muted-foreground mb-10 max-w-sm mx-auto">We're still curating the best solutions for this category. Check back soon for our top recommendations.</p>
+                        <p className="text-muted-foreground mb-10 max-w-sm mx-auto">We&apos;re still curating the best solutions for this category. Check back soon for our top recommendations.</p>
                         <Link href="/" className="bg-primary text-primary-foreground px-8 py-3 rounded-full font-bold hover:bg-primary/90 transition-all shadow-md">
                             Back to Home
                         </Link>

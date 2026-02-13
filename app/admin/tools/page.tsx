@@ -44,7 +44,7 @@ export default function AdminToolsPage() {
             });
 
             if (res.ok) {
-                setTools(tools.filter((t) => t._id !== id));
+                setTools(tools.filter((t: SaaSTool) => t._id !== id));
             } else {
                 alert("Failed to delete tool");
             }
@@ -84,7 +84,7 @@ export default function AdminToolsPage() {
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-100 dark:divide-slate-700">
-                        {tools.map((tool) => (
+                        {tools.map((tool: SaaSTool) => (
                             <tr key={tool._id} className="hover:bg-slate-50 dark:hover:bg-slate-700/50">
                                 <td className="px-6 py-4 font-medium text-slate-900 dark:text-white">
                                     {tool.name}
@@ -94,8 +94,8 @@ export default function AdminToolsPage() {
                                 </td>
                                 <td className="px-6 py-4 text-slate-500">
                                     <span className={`px-2 py-1 rounded-full text-xs ${tool.pricingModel === 'Free' ? 'bg-green-100 text-green-700' :
-                                            tool.pricingModel === 'Paid' ? 'bg-indigo-100 text-indigo-700' :
-                                                'bg-slate-100 text-slate-700'
+                                        tool.pricingModel === 'Paid' ? 'bg-indigo-100 text-indigo-700' :
+                                            'bg-slate-100 text-slate-700'
                                         }`}>
                                         {tool.pricingModel}
                                     </span>

@@ -45,7 +45,7 @@ export default function TermsPage() {
                                 <FileCheck className="text-primary w-10 h-10" />
                                 <h2 className="text-2xl font-black">Accuracy</h2>
                                 <p className="text-muted-foreground font-medium leading-relaxed">
-                                    While we strive for 100% accuracy, SaaS pricing and features change rapidly. Always verify details on the vendor's official website before purchasing.
+                                    While we strive for 100% accuracy, SaaS pricing and features change rapidly. Always verify details on the vendor&apos;s official website before purchasing.
                                 </p>
                             </div>
                         </div>

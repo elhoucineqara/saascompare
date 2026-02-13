@@ -93,7 +93,7 @@ export default function DashboardPage() {
                                         Welcome, <span className="text-gradient">{(session?.user?.name || "Member").split(' ')[0]}</span>
                                     </h1>
                                     <p className="text-muted-foreground font-semibold flex items-center gap-2">
-                                        <History className="w-4 h-4 text-primary" /> You've made <span className="text-foreground">3</span> comparisons this week.
+                                        <History className="w-4 h-4 text-primary" /> You&apos;ve made <span className="text-foreground">3</span> comparisons this week.
                                     </p>
                                 </div>
                                 <div className="flex items-center gap-3">

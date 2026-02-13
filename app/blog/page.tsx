@@ -1,6 +1,7 @@
 import dbConnect from "@/lib/mongodb";
 import BlogPost from "@/models/BlogPost";
 import Link from "next/link";
+import Image from "next/image";
 import { format } from "date-fns";
 import { ArrowRight, Calendar, User } from "lucide-react";
 
@@ -55,7 +56,12 @@ export default async function BlogIndexPage() {
                             >
                                 <div className="h-64 bg-muted w-full relative overflow-hidden">
                                     {post.coverImage ? (
-                                        <img src={post.coverImage} alt={post.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                                        <Image
+                                            src={post.coverImage}
+                                            alt={post.title}
+                                            fill
+                                            className="object-cover transition-transform duration-700 group-hover:scale-110"
+                                        />
                                     ) : (
                                         <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/10 to-violet-500/10">
                                             <span className="text-5xl group-hover:scale-125 transition-transform duration-500">📄</span>

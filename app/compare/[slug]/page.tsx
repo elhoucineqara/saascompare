@@ -3,7 +3,7 @@ import dbConnect from "@/lib/mongodb";
 import SaaSTool from "@/models/SaaSTool";
 import Image from "next/image";
 import Link from "next/link";
-import { Check, X, ArrowRight, ExternalLink, Zap, MinusCircle, CheckCircle2, TrendingUp } from "lucide-react";
+import { X, Zap, CheckCircle2, TrendingUp } from "lucide-react";
 import { notFound } from "next/navigation";
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
@@ -40,7 +40,7 @@ export default async function ComparisonPage({ params }: { params: { slug: strin
                     <X className="w-10 h-10" />
                 </div>
                 <h1 className="text-3xl font-bold mb-4">Comparison Not Found</h1>
-                <p className="text-muted-foreground mb-8 max-w-md">One or both of the tools you're trying to compare couldn't be found in our database.</p>
+                <p className="text-muted-foreground mb-8 max-w-md">One or both of the tools you&apos;re trying to compare couldn&apos;t be found in our database.</p>
                 <Link href="/categories" className="bg-primary text-primary-foreground px-8 py-3 rounded-full font-bold hover:bg-primary/90 transition-all shadow-md">
                     Browse All Tools
                 </Link>

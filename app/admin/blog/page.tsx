@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { format } from "date-fns";
 import { Edit, Plus, Trash2, Eye } from "lucide-react";
@@ -21,11 +21,7 @@ export default function AdminBlogList() {
     const [posts, setPosts] = useState<Post[]>([]);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        fetchPosts();
-    }, []);
-
-    const fetchPosts = async () => {
+    const fetchPosts = useCallback(async () => {
         try {
             const res = await fetch("/api/admin/blog");
             if (res.ok) {
@@ -37,7 +33,11 @@ export default function AdminBlogList() {
         } finally {
             setLoading(false);
         }
-    };
+    }, []);
+
+    useEffect(() => {
+        fetchPosts();
+    }, [fetchPosts]);
 
     const handleDelete = async (id: string) => {
         if (!confirm("Are you sure you want to delete this post?")) return;
@@ -47,7 +47,7 @@ export default function AdminBlogList() {
                 method: "DELETE",
             });
             if (res.ok) {
-                setPosts(posts.filter((p) => p._id !== id));
+                setPosts(posts.filter((p: Post) => p._id !== id));
             } else {
                 alert("Failed to delete post");
             }
@@ -83,7 +83,7 @@ export default function AdminBlogList() {
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-100 dark:divide-slate-700">
-                        {posts.map((post) => (
+                        {posts.map((post: Post) => (
                             <tr key={post._id} className="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition">
                                 <td className="px-6 py-4 font-medium max-w-md truncate">
                                     {post.title}
@@ -92,8 +92,8 @@ export default function AdminBlogList() {
                                 <td className="px-6 py-4">
                                     <span
                                         className={`px-2 py-1 rounded-full text-xs font-bold ${post.published
-                                                ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
-                                                : "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400"
+                                            ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
+                                            : "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400"
                                             }`}
                                     >
                                         {post.published ? "Published" : "Draft"}
