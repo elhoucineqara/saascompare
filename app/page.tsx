@@ -1,7 +1,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, CheckCircle2, Star, Zap, BarChart3, Globe2, Layers, Search, ShieldCheck, HelpCircle, Users, TrendingUp, ChevronRight } from "lucide-react";
+import { ArrowRight, CheckCircle2, Zap, BarChart3, Globe2, Layers, Search, ShieldCheck, HelpCircle, Users, TrendingUp, ChevronRight } from "lucide-react";
 import HeroSearch from "@/components/HeroSearch";
 
 

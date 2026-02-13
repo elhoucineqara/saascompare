@@ -3,9 +3,9 @@ import { NextResponse } from "next/server";
 import dbConnect from "@/lib/mongodb";
 import BlogPost from "@/models/BlogPost";
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth";
 
-export async function GET(request: Request) {
+export async function GET() {
     try {
         await dbConnect();
         // Check authentication
@@ -19,7 +19,7 @@ export async function GET(request: Request) {
             .populate("author", "name");
 
         return NextResponse.json(posts);
-    } catch (error) {
+    } catch {
         return NextResponse.json({ error: "Failed to fetch posts" }, { status: 500 });
     }
 }

@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import dbConnect from "@/lib/mongodb";
 import BlogPost from "@/models/BlogPost";
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth";
 
 export async function GET(request: Request, { params }: { params: { id: string } }) {
     try {
@@ -19,7 +19,7 @@ export async function GET(request: Request, { params }: { params: { id: string }
         }
 
         return NextResponse.json(post);
-    } catch (error) {
+    } catch {
         return NextResponse.json({ error: "Failed to fetch post" }, { status: 500 });
     }
 }
@@ -70,7 +70,7 @@ export async function DELETE(request: Request, { params }: { params: { id: strin
         }
 
         return NextResponse.json({ message: "Post deleted successfully" });
-    } catch (error) {
+    } catch {
         return NextResponse.json({ error: "Failed to delete post" }, { status: 500 });
     }
 }

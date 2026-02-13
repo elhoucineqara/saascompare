@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ChevronLeft, Save, Loader2 } from "lucide-react";
@@ -27,13 +27,7 @@ export default function AdminBlogEdit({ params }: PostFormProps) {
         seoDescription: "",
     });
 
-    useEffect(() => {
-        if (!isNew) {
-            fetchPost();
-        }
-    }, [params.id]);
-
-    const fetchPost = async () => {
+    const fetchPost = useCallback(async () => {
         try {
             const res = await fetch(`/api/admin/blog/${params.id}`);
             if (res.ok) {
@@ -51,7 +45,13 @@ export default function AdminBlogEdit({ params }: PostFormProps) {
         } finally {
             setLoading(false);
         }
-    };
+    }, [params.id, router]);
+
+    useEffect(() => {
+        if (!isNew) {
+            fetchPost();
+        }
+    }, [isNew, fetchPost]);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth";
 import dbConnect from "@/lib/mongodb";
 import SaaSTool from "@/models/SaaSTool";
 
@@ -22,7 +22,7 @@ export async function GET(
             return NextResponse.json({ error: "Tool not found" }, { status: 404 });
         }
         return NextResponse.json(tool);
-    } catch (error) {
+    } catch {
         return NextResponse.json({ error: "Failed to fetch tool" }, { status: 500 });
     }
 }
@@ -48,8 +48,8 @@ export async function PUT(
             return NextResponse.json({ error: "Tool not found" }, { status: 404 });
         }
         return NextResponse.json(tool);
-    } catch (error: any) {
-        return NextResponse.json({ error: error.message || "Failed to update tool" }, { status: 400 });
+    } catch (error: unknown) {
+        return NextResponse.json({ error: (error as Error).message || "Failed to update tool" }, { status: 400 });
     }
 }
 
@@ -70,7 +70,7 @@ export async function DELETE(
             return NextResponse.json({ error: "Tool not found" }, { status: 404 });
         }
         return NextResponse.json({ message: "Tool deleted successfully" });
-    } catch (error) {
+    } catch {
         return NextResponse.json({ error: "Failed to delete tool" }, { status: 500 });
     }
 }

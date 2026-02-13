@@ -3,7 +3,7 @@ import dbConnect from "@/lib/mongodb";
 import SaaSTool from "@/models/SaaSTool";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, CheckCircle2, ChevronRight, ExternalLink, MinusCircle, Star, BarChart, Shield, Zap } from "lucide-react";
+import { CheckCircle2, ChevronRight, ExternalLink, MinusCircle, Star, Shield, Zap } from "lucide-react";
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
     await dbConnect();

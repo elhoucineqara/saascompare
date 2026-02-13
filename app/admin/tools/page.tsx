@@ -124,7 +124,7 @@ export default function AdminToolsPage() {
                         {tools.length === 0 && (
                             <tr>
                                 <td colSpan={5} className="text-center py-12 text-muted-foreground">
-                                    No tools found. Click "Add Tool" to create one.
+                                    No tools found. Click &quot;Add Tool&quot; to create one.
                                 </td>
                             </tr>
                         )}

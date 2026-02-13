@@ -1,11 +1,11 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth";
 import dbConnect from "@/lib/mongodb";
 import SaaSTool from "@/models/SaaSTool";
 import Category from "@/models/Category"; // Ensure Category model is loaded
 
-export async function GET(req: Request) {
+export async function GET() {
     const session = await getServerSession(authOptions);
 
     if (!session || session.user.role !== "admin") {
@@ -38,7 +38,7 @@ export async function POST(req: Request) {
         await dbConnect();
         const tool = await SaaSTool.create(body);
         return NextResponse.json(tool, { status: 201 });
-    } catch (error: Error | any) {
+    } catch (error: unknown) {
         console.error(error);
         return NextResponse.json({ error: (error as Error).message || "Failed to create tool" }, { status: 400 });
     }

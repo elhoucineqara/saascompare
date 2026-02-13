@@ -2,12 +2,30 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { Search, Loader2, Package, Tag, Scale } from "lucide-react";
+import { Search, Loader2, Package, Scale } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
+
+interface ToolSuggestion {
+    slug: string;
+    name: string;
+    logoUrl: string;
+}
+
+interface ComparisonSuggestion {
+    slug: string;
+    title: string;
+}
+
+interface SearchSuggestions {
+    tools: ToolSuggestion[];
+    categories: unknown[]; // Kept as unknown[] since it's unused in the UI but present in data
+    comparisons: ComparisonSuggestion[];
+}
 
 export default function HeroSearch() {
     const [query, setQuery] = useState("");
-    const [suggestions, setSuggestions] = useState<{ tools: any[], categories: any[], comparisons: any[] } | null>(null);
+    const [suggestions, setSuggestions] = useState<SearchSuggestions | null>(null);
     const [isLoading, setIsLoading] = useState(false);
     const [showSuggestions, setShowSuggestions] = useState(false);
     const router = useRouter();

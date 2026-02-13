@@ -9,8 +9,26 @@ interface Category {
     name: string;
 }
 
+interface ToolData {
+    _id?: string;
+    name: string;
+    slug: string;
+    websiteUrl: string;
+    logoUrl: string;
+    shortDescription: string;
+    longReview: string;
+    affiliateLink: string;
+    category: string;
+    pricingModel: string;
+    startingPrice: number;
+    isFeatured: boolean;
+    seoTitle: string;
+    seoDescription: string;
+    features: string[];
+}
+
 interface ToolFormProps {
-    initialData?: any;
+    initialData?: Partial<ToolData> | null;
     isEditing?: boolean;
 }
 
@@ -260,7 +278,7 @@ export default function ToolForm({ initialData, isEditing = false }: ToolFormPro
                     name="isFeatured"
                     id="isFeatured"
                     checked={formData.isFeatured}
-                    // @ts-ignore
+                    // @ts-expect-error - checked property is present on checkbox input
                     onChange={handleChange}
                     className="w-4 h-4"
                 />

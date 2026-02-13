@@ -6,10 +6,26 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
+interface ToolResult {
+    slug: string;
+    name: string;
+    logoUrl?: string;
+}
+
+interface CategoryResult {
+    slug: string;
+    name: string;
+}
+
+interface ComparisonResult {
+    slug: string;
+    title: string;
+}
+
 interface SearchResult {
-    tools: any[];
-    categories: any[];
-    comparisons: any[];
+    tools: ToolResult[];
+    categories: CategoryResult[];
+    comparisons: ComparisonResult[];
 }
 
 export default function SearchModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
@@ -143,7 +159,7 @@ export default function SearchModal({ isOpen, onClose }: { isOpen: boolean; onCl
                                     <h4 className="px-4 mb-2 text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60">Tools</h4>
                                     <div className="space-y-1">
                                         {results?.tools.map((tool, i) => {
-                                            const globalIndex = results.tools.indexOf(tool);
+                                            const globalIndex = i;
                                             return (
                                                 <Link
                                                     key={tool.slug}
