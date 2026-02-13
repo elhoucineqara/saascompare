@@ -1,8 +1,13 @@
-import NextAuth, { AuthOptions } from "next-auth";
+import { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import dbConnect from "@/lib/mongodb";
 import UserModel from "@/models/User";
+
+interface ExtendedUser {
+    id: string;
+    role: string;
+}
 
 export const authOptions: AuthOptions = {
     providers: [
@@ -44,15 +49,15 @@ export const authOptions: AuthOptions = {
     callbacks: {
         async jwt({ token, user }) {
             if (user) {
-                token.id = (user as any).id;
-                token.role = (user as any).role;
+                token.id = (user as unknown as ExtendedUser).id;
+                token.role = (user as unknown as ExtendedUser).role;
             }
             return token;
         },
         async session({ session, token }) {
             if (session.user) {
-                (session.user as any).id = token.id as string;
-                (session.user as any).role = token.role as string;
+                (session.user as unknown as ExtendedUser).id = token.id as string;
+                (session.user as unknown as ExtendedUser).role = token.role as string;
             }
             return session;
         },
