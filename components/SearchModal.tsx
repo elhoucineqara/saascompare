@@ -86,18 +86,18 @@ export default function SearchModal({ isOpen, onClose }: { isOpen: boolean; onCl
     if (!isOpen) return null;
 
     const flattenedResults = results ? [
-        ...results.tools.map(t => ({ ...t, type: 'tool' })),
-        ...results.categories.map(c => ({ ...c, type: 'category' })),
-        ...results.comparisons.map(comp => ({ ...comp, type: 'comparison' }))
+        ...results.tools.map((t: ToolResult) => ({ ...t, type: 'tool' })),
+        ...results.categories.map((c: CategoryResult) => ({ ...c, type: 'category' })),
+        ...results.comparisons.map((comp: ComparisonResult) => ({ ...comp, type: 'comparison' }))
     ] : [];
 
     const handleKeyDown = (e: React.KeyboardEvent) => {
         if (e.key === "ArrowDown") {
             e.preventDefault();
-            setSelectedIndex(prev => (prev + 1) % flattenedResults.length);
+            setSelectedIndex((prev: number) => (prev + 1) % flattenedResults.length);
         } else if (e.key === "ArrowUp") {
             e.preventDefault();
-            setSelectedIndex(prev => (prev - 1 + flattenedResults.length) % flattenedResults.length);
+            setSelectedIndex((prev: number) => (prev - 1 + flattenedResults.length) % flattenedResults.length);
         } else if (e.key === "Enter" && flattenedResults[selectedIndex]) {
             e.preventDefault();
             const item = flattenedResults[selectedIndex];
@@ -159,7 +159,7 @@ export default function SearchModal({ isOpen, onClose }: { isOpen: boolean; onCl
                                 <section>
                                     <h4 className="px-4 mb-2 text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60">Tools</h4>
                                     <div className="space-y-1">
-                                        {results?.tools.map((tool, i) => {
+                                        {results?.tools.map((tool: ToolResult, i: number) => {
                                             const globalIndex = i;
                                             return (
                                                 <Link
@@ -194,8 +194,8 @@ export default function SearchModal({ isOpen, onClose }: { isOpen: boolean; onCl
                                 <section>
                                     <h4 className="px-4 mb-2 text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60">Categories</h4>
                                     <div className="space-y-1">
-                                        {results?.categories.map((cat, i) => {
-                                            const globalIndex = results?.tools.length + i;
+                                        {results?.categories.map((cat: CategoryResult, i: number) => {
+                                            const globalIndex = (results?.tools?.length || 0) + i;
                                             return (
                                                 <Link
                                                     key={cat.slug}
@@ -223,8 +223,8 @@ export default function SearchModal({ isOpen, onClose }: { isOpen: boolean; onCl
                                 <section>
                                     <h4 className="px-4 mb-2 text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60">Comparisons</h4>
                                     <div className="space-y-1">
-                                        {results?.comparisons.map((comp, i) => {
-                                            const globalIndex = results?.tools.length + results?.categories.length + i;
+                                        {results?.comparisons.map((comp: ComparisonResult, i: number) => {
+                                            const globalIndex = (results?.tools?.length || 0) + (results?.categories?.length || 0) + i;
                                             return (
                                                 <Link
                                                     key={comp.slug}

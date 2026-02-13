@@ -73,7 +73,7 @@ export default function ToolForm({ initialData, isEditing = false }: ToolFormPro
 
         // Auto-generate slug from name if creating
         if (!isEditing && e.target.name === "name") {
-            setFormData(prev => ({ ...prev, name: value as string, slug: (value as string).toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '') }));
+            setFormData((prev: typeof formData) => ({ ...prev, name: value as string, slug: (value as string).toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '') }));
         }
     };
 
@@ -85,7 +85,7 @@ export default function ToolForm({ initialData, isEditing = false }: ToolFormPro
     };
 
     const removeFeature = (index: number) => {
-        setFeatures(features.filter((_, i) => i !== index));
+        setFeatures(features.filter((_: string, i: number) => i !== index));
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -95,8 +95,8 @@ export default function ToolForm({ initialData, isEditing = false }: ToolFormPro
         const payload = { ...formData, features };
 
         try {
-            const url = isEditing ? `/api/admin/tools/${initialData._id}` : "/api/admin/tools";
-            const method = isEditing ? "PUT" : "POST";
+            const url = isEditing && initialData?._id ? `/api/admin/tools/${initialData._id}` : "/api/admin/tools";
+            const method = isEditing && initialData?._id ? "PUT" : "POST";
 
             const res = await fetch(url, {
                 method,
@@ -155,7 +155,7 @@ export default function ToolForm({ initialData, isEditing = false }: ToolFormPro
                         required
                     >
                         <option value="">Select Category</option>
-                        {categories.map((cat) => (
+                        {categories.map((cat: Category) => (
                             <option key={cat._id} value={cat._id}>{cat.name}</option>
                         ))}
                     </select>
@@ -263,7 +263,7 @@ export default function ToolForm({ initialData, isEditing = false }: ToolFormPro
                     </button>
                 </div>
                 <div className="flex flex-wrap gap-2 mt-2">
-                    {features.map((feat, i) => (
+                    {features.map((feat: string, i: number) => (
                         <span key={i} className="bg-slate-100 text-slate-800 px-2 py-1 rounded-full text-sm flex items-center gap-1">
                             {feat}
                             <button type="button" onClick={() => removeFeature(i)}><X className="w-3 h-3 hover:text-red-500" /></button>
@@ -278,7 +278,6 @@ export default function ToolForm({ initialData, isEditing = false }: ToolFormPro
                     name="isFeatured"
                     id="isFeatured"
                     checked={formData.isFeatured}
-                    // @ts-expect-error - checked property is present on checkbox input
                     onChange={handleChange}
                     className="w-4 h-4"
                 />
