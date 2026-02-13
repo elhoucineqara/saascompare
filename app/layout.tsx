@@ -4,6 +4,7 @@ import "./globals.css";
 import Provider from "@/components/SessionProvider";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Script from "next/script";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -33,6 +34,9 @@ export const metadata: Metadata = {
     email: false,
     address: false,
     telephone: false,
+  },
+  other: {
+    "google-adsense-account": "ca-pub-7245366364935377",
   },
   openGraph: {
     type: "website",
@@ -81,6 +85,12 @@ export default function RootLayout({
           </main>
           <Footer />
         </Provider>
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7245366364935377"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
